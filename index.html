@@ -47,8 +47,8 @@
             background-color: #0f2027;
             background-image: radial-gradient(#c59b27 0.75px, transparent 0.75px), radial-gradient(#c59b27 0.75px, #0f2027 0.75px);
             background-size: 30px 30px;
-            background-position: 0 0,15px 15px;
-            opacity: 0.95;
+            background-position: 0 0, 15px 15px;
+            opacity: 0.96;
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
@@ -68,74 +68,122 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-nccu-gold selection:text-white">
 
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md text-white border-b border-slate-800 shadow-lg">
+    <!-- 1. 頂部固定導覽列 (Sticky Header) -->
+    <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-500 to-red-700 flex items-center justify-center font-bold text-lg text-white shadow-md">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-500 to-red-700 flex items-center justify-center font-bold text-lg text-white shadow-md flex-shrink-0">
                     政大
                 </div>
                 <div>
-                    <span class="text-xs uppercase tracking-wider text-amber-400 font-semibold block">NCCU EMBA 2027年班 (116級)</span>
-                    <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">領導與團隊 4學分 授課大綱</h1>
+                    <span class="text-[11px] sm:text-xs uppercase tracking-wider text-amber-400 font-semibold block">NCCU EMBA 2027年班 (116級)</span>
+                    <h1 class="text-sm sm:text-lg font-bold text-white tracking-tight">領導與團隊 4學分 授課大綱</h1>
                 </div>
             </div>
 
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex space-x-1 lg:space-x-6 text-sm font-medium">
+            <!-- 桌面版導覽連結 -->
+            <nav class="hidden lg:flex space-x-5 text-sm font-medium">
                 <a href="#overview" class="text-slate-300 hover:text-amber-400 transition-colors py-2 px-1">課程簡介</a>
                 <a href="#teachers" class="text-slate-300 hover:text-amber-400 transition-colors py-2 px-1">師資團隊</a>
                 <a href="#timelines" class="text-slate-300 hover:text-amber-400 transition-colors py-2 px-1">密集時程</a>
                 <a href="#assignments" class="text-slate-300 hover:text-amber-400 transition-colors py-2 px-1">作業說明與展演指南</a>
-                <a href="https://reurl.cc/vpqOEl" target="_blank" rel="noopener noreferrer" class="text-amber-300 hover:text-amber-400 transition-colors py-2 px-1 font-semibold flex items-center space-x-1">
+                <a href="https://drive.google.com/drive/folders/15m_V70ajlBU6W-intAe5qQps0BGaE-9N?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-amber-300 hover:text-amber-400 transition-colors py-2 px-1 font-semibold flex items-center space-x-1">
                     <i class="fas fa-book text-xs"></i>
                     <span>參考閱讀資料/完整課程大綱</span>
                 </a>
             </nav>
 
-            <!-- Search & Actions -->
+            <!-- 右側按鈕區 -->
             <div class="flex items-center space-x-2">
-                <button onclick="toggleSearchModal()" class="p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800 transition" title="搜尋課程資訊">
-                    <i class="fas fa-search text-lg"></i>
+                <button onclick="toggleSearchModal()" class="p-2.5 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800 transition" title="搜尋課程資訊" aria-label="搜尋課程資訊">
+                    <i class="fas fa-search text-base sm:text-lg"></i>
                 </button>
-                <a href="https://go.emba.cnccu.tw/learning/login" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center space-x-1 bg-amber-500 hover:bg-amber-600 text-slate-950 px-3 py-1.5 rounded-md font-bold text-xs shadow transition">
+                <a href="https://go.emba.nccu.edu.tw/learning/login" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center space-x-1.5 bg-amber-500 hover:bg-amber-600 text-slate-950 px-3.5 py-2 rounded-lg font-bold text-xs shadow transition">
                     <span>數位學習平台</span>
                     <i class="fas fa-external-link-alt text-[10px]"></i>
                 </a>
-                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-300 hover:text-white">
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800 transition" aria-label="開啟選單">
                     <i class="fas fa-bars text-xl" id="menuIcon"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Nav Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
-            <a href="#overview" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 hover:text-amber-400 border-b border-slate-800">課程簡介與目標</a>
-            <a href="#teachers" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 hover:text-amber-400 border-b border-slate-800">授課與召集人/導師團隊</a>
-            <a href="#timelines" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 hover:text-amber-400 border-b border-slate-800">密集上課時程表</a>
-            <a href="#assignments" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 hover:text-amber-400 border-b border-slate-800">五大作業與數位展演指南</a>
-            <a href="https://reurl.cc/vpqOEl" target="_blank" class="block py-2 text-amber-300 font-semibold border-b border-slate-800"><i class="fas fa-external-link-alt mr-1"></i> 參考閱讀資料連結</a>
-            <a href="https://go.emba.cnccu.tw/learning/login" target="_blank" class="block py-2 text-amber-400 font-bold">登入政大 EMBA 平台 <i class="fas fa-arrow-right text-xs"></i></a>
+        <!-- 手機版漢堡選單抽屜 -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
+            <a href="#overview" onclick="toggleMobileMenu()" class="block py-2.5 text-slate-200 hover:text-amber-400 border-b border-slate-800">課程簡介</a>
+            <a href="#teachers" onclick="toggleMobileMenu()" class="block py-2.5 text-slate-200 hover:text-amber-400 border-b border-slate-800">師資團隊</a>
+            <a href="#timelines" onclick="toggleMobileMenu()" class="block py-2.5 text-slate-200 hover:text-amber-400 border-b border-slate-800">密集時程</a>
+            <a href="#assignments" onclick="toggleMobileMenu()" class="block py-2.5 text-slate-200 hover:text-amber-400 border-b border-slate-800">作業說明與展演指南</a>
+            <a href="https://drive.google.com/drive/folders/15m_V70ajlBU6W-intAe5qQps0BGaE-9N?usp=drive_link" target="_blank" rel="noopener noreferrer" class="block py-2.5 text-amber-300 font-semibold border-b border-slate-800">
+                <i class="fas fa-book mr-1.5"></i>參考閱讀資料/完整課程大綱
+            </a>
+            <a href="https://go.emba.nccu.edu.tw/learning/login" target="_blank" rel="noopener noreferrer" class="block py-2.5 text-amber-400 font-bold">
+                數位學習平台 <i class="fas fa-external-link-alt text-xs ml-1"></i>
+            </a>
+        </div>
+
+        <!-- 2. 智慧動態作業倒數提醒器橫幅 (Countdown Reminder Bar) -->
+        <div class="bg-gradient-to-r from-red-950 via-slate-900 to-amber-950 border-t border-amber-500/30 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col lg:flex-row items-center justify-between gap-2.5">
+                
+                <!-- 左側：狀態標籤、下拉選單與截止時間 -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs">
+                    <span id="countdownBadge" class="inline-flex items-center space-x-1.5 bg-red-600/90 text-white px-2.5 py-0.5 rounded-full font-bold tracking-wide shadow-sm">
+                        <i class="fas fa-hourglass-half animate-spin" style="animation-duration: 3s;"></i>
+                        <span>倒數計時</span>
+                    </span>
+                    <select id="deadlineSelector" onchange="selectCustomDeadline()" aria-label="選擇倒數目標" class="bg-slate-800/90 text-amber-300 font-bold border border-amber-500/40 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-amber-400 cursor-pointer max-w-[240px] sm:max-w-none">
+                        <!-- 由 JS 動態生成選項 -->
+                    </select>
+                    <span id="deadlineDateText" class="text-slate-300 font-mono text-[11px]"></span>
+                </div>
+
+                <!-- 右側：天/時/分/秒 數位倒數與跳轉按鈕 -->
+                <div class="flex items-center space-x-2.5 sm:space-x-3">
+                    <div id="countdownTimerBox" class="flex items-center space-x-1 sm:space-x-1.5 font-mono text-xs sm:text-sm font-extrabold">
+                        <div class="bg-slate-950/80 border border-amber-500/30 px-2 py-1 rounded text-amber-400">
+                            <span id="cd-days">00</span><span class="text-[10px] text-slate-400 font-sans ml-0.5">天</span>
+                        </div>
+                        <span class="text-amber-500/70">:</span>
+                        <div class="bg-slate-950/80 border border-amber-500/30 px-2 py-1 rounded text-amber-400">
+                            <span id="cd-hours">00</span><span class="text-[10px] text-slate-400 font-sans ml-0.5">時</span>
+                        </div>
+                        <span class="text-amber-500/70">:</span>
+                        <div class="bg-slate-950/80 border border-amber-500/30 px-2 py-1 rounded text-amber-400">
+                            <span id="cd-mins">00</span><span class="text-[10px] text-slate-400 font-sans ml-0.5">分</span>
+                        </div>
+                        <span class="text-amber-500/70">:</span>
+                        <div class="bg-slate-950/80 border border-amber-500/30 px-2 py-1 rounded text-red-400 w-12 text-center">
+                            <span id="cd-secs">00</span><span class="text-[10px] text-slate-400 font-sans ml-0.5">秒</span>
+                        </div>
+                    </div>
+
+                    <button onclick="jumpToSelectedTarget()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-lg text-[11px] font-bold transition whitespace-nowrap">
+                        查看詳情 <i class="fas fa-arrow-down ml-0.5 text-[9px]"></i>
+                    </button>
+                </div>
+
+            </div>
         </div>
     </header>
 
-    <!-- Hero Banner -->
+    <!-- 3. 主視覺 Hero Banner -->
     <section class="hero-pattern text-white py-12 md:py-20 relative overflow-hidden border-b border-amber-500/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="max-w-3xl">
-                <div class="inline-flex items-center space-x-2 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full px-3 py-1 text-xs font-semibold mb-4">
+                <div class="inline-flex items-center space-x-2 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full px-3.5 py-1 text-xs font-semibold mb-4">
                     <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
                     <span>2022 起全升級為 4 學分 實體 + 數位 Hybrid 課程</span>
                 </div>
-                <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-4">
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-4">
                     跨越理論與實務的 <br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-red-400">領導與團隊卓越旅程</span>
-                </h1>
+                </h2>
                 <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 font-light">
                     政大商學院 EMBA 長期引領創新。本課程融合「讀中學、做中學、遊中學、玩中學、對話中學、分享中學、競賽中學」，透過 4 天 3 夜異地體驗學習、轉型領導劇本編創與數位微電影展演，凝聚團隊共識願景，影響您未來的團隊領導風格與行為。
                 </p>
 
-                <!-- Action Buttons -->
+                <!-- 行動按鈕 -->
                 <div class="flex flex-wrap gap-3">
                     <a href="#timelines" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-3 rounded-xl font-bold text-sm shadow-lg hover:shadow-amber-500/20 transition flex items-center space-x-2">
                         <i class="fas fa-calendar-alt"></i>
@@ -145,54 +193,54 @@
                         <i class="fas fa-tasks"></i>
                         <span>作業說明與展演指南</span>
                     </a>
-                    <a href="https://reurl.cc/vpqOEl" target="_blank" rel="noopener noreferrer" class="bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/40 text-amber-300 px-5 py-3 rounded-xl font-semibold text-sm shadow transition flex items-center space-x-2">
+                    <a href="https://drive.google.com/drive/folders/15m_V70ajlBU6W-intAe5qQps0BGaE-9N?usp=drive_link" target="_blank" rel="noopener noreferrer" class="bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/40 text-amber-300 px-5 py-3 rounded-xl font-semibold text-sm shadow transition flex items-center space-x-2">
                         <i class="fas fa-link"></i>
-                        <span>參考閱讀資料連結</span>
+                        <span>參考閱讀資料/完整課程大綱</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Stat Counters -->
+            <!-- 四大數據卡片 -->
             <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-slate-800 pt-8">
-                <div class="bg-slate-900/60 backdrop-blur rounded-xl p-4 border border-slate-800">
-                    <div class="text-amber-400 text-2xl sm:text-3xl font-extrabold">4 學分 / 72 小時</div>
+                <div class="bg-slate-900/70 backdrop-blur rounded-xl p-4 border border-slate-800">
+                    <div class="text-amber-400 text-xl sm:text-3xl font-extrabold">4 學分 / 72 小時</div>
                     <div class="text-xs text-slate-400 mt-1">實體異地 + 數位展演密集授課</div>
                 </div>
-                <div class="bg-slate-900/60 backdrop-blur rounded-xl p-4 border border-slate-800">
-                    <div class="text-amber-400 text-2xl sm:text-3xl font-extrabold">17 組團隊</div>
+                <div class="bg-slate-900/70 backdrop-blur rounded-xl p-4 border border-slate-800">
+                    <div class="text-amber-400 text-xl sm:text-3xl font-extrabold">17 組團隊</div>
                     <div class="text-xs text-slate-400 mt-1">跨五大組別（每組11-13人）</div>
                 </div>
-                <div class="bg-slate-900/60 backdrop-blur rounded-xl p-4 border border-slate-800">
-                    <div class="text-amber-400 text-2xl sm:text-3xl font-extrabold">5 大經典作業</div>
+                <div class="bg-slate-900/70 backdrop-blur rounded-xl p-4 border border-slate-800">
+                    <div class="text-amber-400 text-xl sm:text-3xl font-extrabold">5 大經典作業</div>
                     <div class="text-xs text-slate-400 mt-1">生命年表、競標、典範劇、書友、Takeaways</div>
                 </div>
-                <div class="bg-slate-900/60 backdrop-blur rounded-xl p-4 border border-slate-800">
-                    <div class="text-amber-400 text-2xl sm:text-3xl font-extrabold">4 天 3 夜</div>
+                <div class="bg-slate-900/70 backdrop-blur rounded-xl p-4 border border-slate-800">
+                    <div class="text-amber-400 text-xl sm:text-3xl font-extrabold">4 天 3 夜</div>
                     <div class="text-xs text-slate-400 mt-1">花蓮遠雄飯店異地沉浸體驗</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16 flex-grow">
+    <!-- 主要內容區塊 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16 flex-grow w-full">
 
-        <!-- SECTION 1: Overview & Learning Principles -->
-        <section id="overview" class="space-y-8">
+        <!-- 4. 課程簡介與目標 (#overview) -->
+        <section id="overview" class="space-y-8 scroll-mt-32">
             <div class="border-l-4 border-amber-500 pl-4">
                 <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Learning Philosophy & Goals</span>
                 <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">教與學的目標與實踐原則</h2>
             </div>
 
-            <!-- Principles Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+            <!-- 七大學習原則卡片 -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center hover:border-amber-400 transition">
                     <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-2 text-lg font-bold"><i class="fas fa-book-open"></i></div>
                     <h3 class="font-bold text-sm text-slate-800">讀中學</h3>
                     <p class="text-[11px] text-slate-500 mt-1">與作者對話與傾聽</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center hover:border-amber-400 transition">
-                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center mx-auto mb-2 text-lg font-bold"><i class="fas fa-hands-starting"></i></div>
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center mx-auto mb-2 text-lg font-bold"><i class="fas fa-hands-helping"></i></div>
                     <h3 class="font-bold text-sm text-slate-800">做中學</h3>
                     <p class="text-[11px] text-slate-500 mt-1">團隊協同體驗實踐</p>
                 </div>
@@ -216,14 +264,14 @@
                     <h3 class="font-bold text-sm text-slate-800">分享中學</h3>
                     <p class="text-[11px] text-slate-500 mt-1">社群交流經驗凝聚</p>
                 </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center hover:border-amber-400 transition">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center hover:border-amber-400 transition col-span-2 sm:col-span-1">
                     <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center mx-auto mb-2 text-lg font-bold"><i class="fas fa-trophy"></i></div>
                     <h3 class="font-bold text-sm text-slate-800">競賽中學</h3>
                     <p class="text-[11px] text-slate-500 mt-1">團隊競標與實體同儕評價</p>
                 </div>
             </div>
 
-            <!-- Objectives List -->
+            <!-- 九大教與學核心目標完整列表 -->
             <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
                 <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center">
                     <i class="fas fa-bullseye text-red-700 mr-2"></i> 九大教與學核心目標
@@ -275,22 +323,22 @@
             </div>
         </section>
 
-        <!-- SECTION 2: Faculty & Mentors Directory -->
-        <section id="teachers" class="space-y-6">
+        <!-- 5. 師資團隊 (#teachers) -->
+        <section id="teachers" class="space-y-6 scroll-mt-32">
             <div class="border-l-4 border-amber-500 pl-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
                     <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Faculty & Advisory Board</span>
                     <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">授課師資、客座指導與召集人/導師團隊</h2>
                 </div>
-                <!-- Filter Tabs -->
-                <div class="flex border-b border-slate-200 space-x-4 text-sm font-semibold">
-                    <button onclick="switchTeacherTab('core')" id="btn-core" class="pb-2 border-b-2 border-amber-500 text-amber-700 font-bold">課程與授課老師</button>
-                    <button onclick="switchTeacherTab('guest')" id="btn-guest" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800">客座指導老師</button>
-                    <button onclick="switchTeacherTab('mentors')" id="btn-mentors" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800">召集人與班組導師</button>
+                <!-- 分頁切換 Tabs -->
+                <div class="flex border-b border-slate-200 space-x-4 text-sm font-semibold overflow-x-auto">
+                    <button onclick="switchTeacherTab('core')" id="btn-core" class="pb-2 border-b-2 border-amber-500 text-amber-700 font-bold whitespace-nowrap">課程與授課老師</button>
+                    <button onclick="switchTeacherTab('guest')" id="btn-guest" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">客座指導老師</button>
+                    <button onclick="switchTeacherTab('mentors')" id="btn-mentors" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">召集人與班組導師</button>
                 </div>
             </div>
 
-            <!-- Tab Content 1: Core Teachers -->
+            <!-- 分頁一：課程與授課老師 -->
             <div id="tab-core" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex items-start space-x-4">
                     <div class="w-16 h-16 rounded-full bg-gradient-to-br from-amber-600 to-red-800 text-white font-black flex items-center justify-center text-xl flex-shrink-0 shadow">
@@ -317,7 +365,7 @@
                 </div>
             </div>
 
-            <!-- Tab Content 2: Guest Instructors -->
+            <!-- 分頁二：客座指導老師 -->
             <div id="tab-guest" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
                     <div class="text-amber-600 text-xs font-bold mb-1">餐旅管理與創新體驗</div>
@@ -345,7 +393,7 @@
                 </div>
                 <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm sm:col-span-2 lg:col-span-4">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">陸</div>
+                        <div class="w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">陸</div>
                         <div>
                             <h4 class="font-bold text-slate-900 text-base">陸凱聲 導演 / 創辦人</h4>
                             <p class="text-xs text-slate-500">原路行銷影音有限公司創辦人 / 製作總監</p>
@@ -355,7 +403,7 @@
                 </div>
             </div>
 
-            <!-- Tab Content 3: Mentors and Conveners by Track (最新班導師名單更新) -->
+            <!-- 分頁三：召集人與班組導師（五大班組卡片） -->
             <div id="tab-mentors" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 
                 <!-- 全球華商班 -->
@@ -366,12 +414,12 @@
                             <div class="border-b border-slate-100 pb-2">
                                 <span class="text-[11px] font-bold text-slate-400 block uppercase">召集人</span>
                                 <h4 class="font-bold text-slate-900 text-base">陳嬿如 教授</h4>
-                                <p class="text-xs text-slate-500">財管系教授兼永續財務決策研究中心主任、商學院EMBA執行長</p>
+                                <p class="text-xs text-slate-500">EMBA 執行長、財務管理學系教授</p>
                             </div>
                             <div>
                                 <span class="text-[11px] font-bold text-amber-600 block uppercase">2027級華商班導師</span>
                                 <ul class="text-xs text-slate-700 font-semibold space-y-1 mt-1">
-                                    <li>• 陳嬿如 教授 <span class="font-normal text-slate-500">(財務管理學系)</span></li>
+                                    <li>• 陳嬿如 教授 <span class="font-normal text-slate-500">(財務管理學系教授)</span></li>
                                     <li>• 鄭至甫 教授 <span class="font-normal text-slate-500">(科技管理與智慧財產研究所)</span></li>
                                 </ul>
                             </div>
@@ -392,8 +440,8 @@
                             <div>
                                 <span class="text-[11px] font-bold text-amber-600 block uppercase">2027級全企組導師</span>
                                 <ul class="text-xs text-slate-700 font-semibold space-y-1 mt-1">
-                                    <li>• 郭維裕 教授 <span class="font-normal text-slate-500">(國際經營與貿易學系)</span></li>
-                                    <li>• 酈芃羽 副教授 <span class="font-normal text-slate-500">(企業管理學系)</span></li>
+                                    <li>• 郭維裕 教授 <span class="font-normal text-slate-500">(國際經營與貿易學系教授)</span></li>
+                                    <li>• 酈芃羽 副教授 <span class="font-normal text-slate-500">(企業管理學系副教授)</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -412,7 +460,10 @@
                             </div>
                             <div>
                                 <span class="text-[11px] font-bold text-amber-600 block uppercase">2027級文科資創組導師</span>
-                                <p class="text-xs text-slate-700 font-semibold mt-1">• 張欣綠 教授 <span class="font-normal text-slate-500">(資訊管理學系)</span></p>
+                                <ul class="text-xs text-slate-700 font-semibold space-y-1 mt-1">
+                                    <li>• 張瑜倩 副教授 <span class="font-normal text-slate-500">(科技管理與智慧財產研究所副教授)</span></li>
+                                    <li>• 張欣綠 教授 <span class="font-normal text-slate-500">(資訊管理學系教授兼系主任)</span></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -431,8 +482,8 @@
                             <div>
                                 <span class="text-[11px] font-bold text-amber-600 block uppercase">2027級國際金融組導師</span>
                                 <ul class="text-xs text-slate-700 font-semibold space-y-1 mt-1">
-                                    <li>• 林士貴 教授 <span class="font-normal text-slate-500">(金融學系)</span></li>
-                                    <li>• 謝沛霖 副教授 <span class="font-normal text-slate-500">(財務管理學系)</span></li>
+                                    <li>• 林士貴 教授 <span class="font-normal text-slate-500">(金融學系教授)</span></li>
+                                    <li>• 謝沛霖 副教授 <span class="font-normal text-slate-500">(財務管理學系副教授)</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -452,8 +503,8 @@
                             <div>
                                 <span class="text-[11px] font-bold text-amber-600 block uppercase">2027級生醫組導師</span>
                                 <ul class="text-xs text-slate-700 font-semibold space-y-1 mt-1">
-                                    <li>• 胡昌亞 教授 <span class="font-normal text-slate-500">(企業管理學系)</span></li>
-                                    <li>• 潘振宇 副教授 <span class="font-normal text-slate-500">(國際經營與貿易學系)</span></li>
+                                    <li>• 胡昌亞 教授 <span class="font-normal text-slate-500">(企業管理學系教授)</span></li>
+                                    <li>• 潘振宇 副教授 <span class="font-normal text-slate-500">(國際經營與貿易學系副教授)</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -463,25 +514,25 @@
             </div>
         </section>
 
-        <!-- SECTION 3: Schedules and Detailed Timelines -->
-        <section id="timelines" class="space-y-8">
+        <!-- 6. 密集時程 (#timelines) -->
+        <section id="timelines" class="space-y-8 scroll-mt-32">
             <div class="border-l-4 border-amber-500 pl-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
                     <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Course Schedule & Agenda</span>
                     <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">密集上課時程與完整日程表</h2>
                 </div>
-                <!-- Schedule Mode Selector -->
-                <div class="flex bg-slate-200 p-1 rounded-xl text-xs font-bold">
-                    <button onclick="switchScheduleView('milestones')" id="s-btn-milestones" class="px-3 py-1.5 rounded-lg bg-white shadow text-slate-900">全域里程碑</button>
-                    <button onclick="switchScheduleView('offsite')" id="s-btn-offsite" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900">4天3夜異地授課細節</button>
-                    <button onclick="switchScheduleView('final')" id="s-btn-final" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900">2/21 數位展演日</button>
+                <!-- 三種檢視切換按鈕 -->
+                <div class="flex bg-slate-200 p-1 rounded-xl text-xs font-bold overflow-x-auto">
+                    <button onclick="switchScheduleView('milestones')" id="s-btn-milestones" class="px-3 py-1.5 rounded-lg bg-white shadow text-slate-900 whitespace-nowrap">全域里程碑</button>
+                    <button onclick="switchScheduleView('offsite')" id="s-btn-offsite" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 whitespace-nowrap">4天3夜異地授課細節</button>
+                    <button onclick="switchScheduleView('final')" id="s-btn-final" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 whitespace-nowrap">2/21 數位展演日</button>
                 </div>
             </div>
 
-            <!-- Schedule View 1: Overall Milestones -->
+            <!-- 檢視一：全域里程碑 -->
             <div id="view-milestones" class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
                 <div class="relative border-l-2 border-amber-500/40 ml-4 md:ml-32 space-y-8">
-                    <!-- Event 1 -->
+                    <!-- 里程碑 1 -->
                     <div class="relative pl-6">
                         <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-2 border-white shadow"></div>
                         <div class="md:absolute md:-left-36 md:top-1 text-xs font-bold text-amber-700 md:text-right md:w-28">
@@ -494,7 +545,7 @@
                         </div>
                     </div>
 
-                    <!-- Event 2 -->
+                    <!-- 里程碑 2 -->
                     <div class="relative pl-6">
                         <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-blue-500 border-2 border-white shadow"></div>
                         <div class="md:absolute md:-left-36 md:top-1 text-xs font-bold text-blue-700 md:text-right md:w-28">
@@ -507,7 +558,7 @@
                         </div>
                     </div>
 
-                    <!-- Event 3 -->
+                    <!-- 里程碑 3 -->
                     <div class="relative pl-6">
                         <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-purple-500 border-2 border-white shadow"></div>
                         <div class="md:absolute md:-left-36 md:top-1 text-xs font-bold text-purple-700 md:text-right md:w-28">
@@ -520,7 +571,7 @@
                         </div>
                     </div>
 
-                    <!-- Event 4 -->
+                    <!-- 里程碑 4 -->
                     <div class="relative pl-6">
                         <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-red-600 border-2 border-white shadow"></div>
                         <div class="md:absolute md:-left-36 md:top-1 text-xs font-bold text-red-700 md:text-right md:w-28">
@@ -533,7 +584,7 @@
                         </div>
                     </div>
 
-                    <!-- Event 5 -->
+                    <!-- 里程碑 5 -->
                     <div class="relative pl-6">
                         <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-600 border-2 border-white shadow"></div>
                         <div class="md:absolute md:-left-36 md:top-1 text-xs font-bold text-emerald-700 md:text-right md:w-28">
@@ -548,9 +599,9 @@
                 </div>
             </div>
 
-            <!-- Schedule View 2: Offsite 4-Day Journey Details -->
+            <!-- 檢視二：4天3夜異地授課細節 -->
             <div id="view-offsite" class="hidden bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-6">
-                <!-- Day Subtabs -->
+                <!-- Day 1 ~ Day 4 子分頁切換 -->
                 <div class="flex overflow-x-auto space-x-2 border-b border-slate-200 pb-2 custom-scrollbar">
                     <button onclick="switchOffsiteDay(1)" id="day-btn-1" class="px-4 py-2 rounded-lg font-bold text-xs bg-amber-500 text-slate-950 flex-shrink-0">Day 1 (1/7 四)</button>
                     <button onclick="switchOffsiteDay(2)" id="day-btn-2" class="px-4 py-2 rounded-lg font-bold text-xs bg-slate-100 text-slate-700 hover:bg-slate-200 flex-shrink-0">Day 2 (1/8 五)</button>
@@ -705,7 +756,7 @@
                 </div>
             </div>
 
-            <!-- Schedule View 3: Final Exhibition Day -->
+            <!-- 檢視三：2/21 數位展演日 -->
             <div id="view-final" class="hidden bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-4">
                 <div class="bg-gradient-to-r from-slate-900 to-amber-950 text-white p-4 rounded-xl mb-4">
                     <span class="text-xs text-amber-400 font-bold uppercase">116年02月21日（星期日）08:30 - 16:00</span>
@@ -769,38 +820,38 @@
             </div>
         </section>
 
-        <!-- SECTION 4: Assignments & Integrated Specifications -->
-        <section id="assignments" class="space-y-8">
+        <!-- 7. 作業說明與展演指南 (#assignments) -->
+        <section id="assignments" class="space-y-8 scroll-mt-32">
             <div class="border-l-4 border-amber-500 pl-4">
                 <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Assignments & Production Guidelines</span>
                 <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">課程五大作業說明、理論工具與展演指南</h2>
             </div>
 
-            <!-- Online Platform Alert Card -->
-            <div class="bg-gradient-to-r from-blue-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-blue-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <!-- 數位學習平台登入資訊卡片 -->
+            <div id="platform-card" class="bg-gradient-to-r from-blue-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-blue-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div class="space-y-2">
                     <div class="inline-flex items-center space-x-2 bg-blue-500/30 text-blue-300 text-xs px-2.5 py-0.5 rounded-full border border-blue-400/30">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <span>數位學習平台統一作業上傳</span>
                     </div>
                     <h3 class="text-lg font-bold">平台登入與規定</h3>
-                    <p class="text-xs text-slate-300">
-                        網址：<a href="https://go.emba.cnccu.tw/learning/login" target="_blank" class="text-amber-400 underline font-mono">https://go.emba.cnccu.tw/learning/login</a><br>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        網址：<a href="https://go.emba.nccu.edu.tw/learning/login" target="_blank" rel="noopener noreferrer" class="text-amber-400 underline font-mono">https://go.emba.nccu.edu.tw/learning/login</a><br>
                         帳號：<span class="bg-slate-800 px-1.5 py-0.5 rounded font-mono">學號</span> ｜ 密碼：<span class="bg-slate-800 px-1.5 py-0.5 rounded font-mono">身分證字號前六碼 (含大寫英文字母，例：Q12345)</span>
                     </p>
-                    <p class="text-[11px] text-amber-300">
+                    <p class="text-[11px] text-amber-300 leading-relaxed">
                         ★ 請務必於 <strong class="underline">12月1日（二）23:55 前</strong> 上傳學生證個人照片檔案 (JPG格式，檔名：姓名)。<br>
                         ★ 上傳限制：檔案上限 64M (超過請附雲端連結)。請使用 Chrome / Safari 瀏覽器，切勿使用 IE。
                     </p>
                 </div>
-                <a href="https://go.emba.cnccu.tw/learning/login" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs whitespace-nowrap shadow transition flex items-center space-x-2">
+                <a href="https://go.emba.nccu.edu.tw/learning/login" target="_blank" rel="noopener noreferrer" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs whitespace-nowrap shadow transition flex items-center space-x-2">
                     <span>前往上傳作業</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
 
-            <!-- Homework Tabs Switcher -->
-            <div class="flex overflow-x-auto space-x-2 border-b border-slate-200 pb-2 custom-scrollbar">
+            <!-- 五大作業分頁切換 -->
+            <div id="hw-tabs-bar" class="flex overflow-x-auto space-x-2 border-b border-slate-200 pb-2 custom-scrollbar">
                 <button onclick="switchHwTab(1)" id="hw-btn-1" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 flex-shrink-0">作業一：生命故事年表</button>
                 <button onclick="switchHwTab(2)" id="hw-btn-2" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 flex-shrink-0">作業二：團隊競標簡章</button>
                 <button onclick="switchHwTab(3)" id="hw-btn-3" class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 flex-shrink-0">作業三：領導/團隊典範 (含核心理論 & 展演分工)</button>
@@ -808,7 +859,7 @@
                 <button onclick="switchHwTab(5)" id="hw-btn-5" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 flex-shrink-0">作業五：Takeaways</button>
             </div>
 
-            <!-- HW 1 Content -->
+            <!-- 作業一內容 -->
             <div id="hw-card-1" class="hidden bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 pb-4">
                     <div>
@@ -847,7 +898,7 @@
                 </div>
             </div>
 
-            <!-- HW 2 Content -->
+            <!-- 作業二內容 -->
             <div id="hw-card-2" class="hidden bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 pb-4">
                     <div>
@@ -887,9 +938,9 @@
                 </div>
             </div>
 
-            <!-- HW 3 Content: Integrated Theory & Digital Film Production Guide -->
+            <!-- 作業三內容（預設開啟） -->
             <div id="hw-card-3" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-8">
-                <!-- Header -->
+                <!-- 標題列 -->
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-200 pb-4">
                     <div>
                         <div class="flex flex-wrap items-center gap-2 mb-1">
@@ -904,24 +955,24 @@
                     </div>
                 </div>
 
-                <!-- Reference Link Alert Banner -->
+                <!-- 參考閱讀資料提示橫幅 -->
                 <div class="bg-gradient-to-r from-amber-500 via-amber-600 to-red-700 text-white p-4 rounded-xl shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-xl flex-shrink-0">
                             <i class="fas fa-file-pdf"></i>
                         </div>
                         <div>
-                            <div class="font-bold text-sm">作業三參考閱讀資料與理論補充文獻</div>
-                            <p class="text-xs text-amber-100 mt-0.5">點擊連結下載線上參考閱讀資料（含典範案例、劇本範例與講義資源）：</p>
+                            <div class="font-bold text-sm">作業三參考閱讀資料與完整課程大綱</div>
+                            <p class="text-xs text-amber-100 mt-0.5">點擊連結下載線上參考閱讀資料（含完整課程大綱、典範案例、劇本範例與講義資源）：</p>
                         </div>
                     </div>
-                    <a href="https://reurl.cc/vpqOEl" target="_blank" rel="noopener noreferrer" class="bg-slate-950 hover:bg-slate-800 text-amber-300 font-bold text-xs px-4 py-2.5 rounded-lg shadow whitespace-nowrap transition flex items-center space-x-2 border border-amber-400/30">
-                        <span>開啟參考閱讀資料 (reurl.cc)</span>
+                    <a href="https://drive.google.com/drive/folders/15m_V70ajlBU6W-intAe5qQps0BGaE-9N?usp=drive_link" target="_blank" rel="noopener noreferrer" class="bg-slate-950 hover:bg-slate-800 text-amber-300 font-bold text-xs px-4 py-2.5 rounded-lg shadow whitespace-nowrap transition flex items-center space-x-2 border border-amber-400/30">
+                        <span>開啟參考閱讀資料 (Google Drive)</span>
                         <i class="fas fa-external-link-alt text-[10px]"></i>
                     </a>
                 </div>
 
-                <!-- HW 3 Overview & Dual Tracks -->
+                <!-- 雙軌展演形式與強制學理對應 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-700">
                     <div class="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <h4 class="font-bold text-slate-900 text-sm flex items-center"><i class="fas fa-theater-masks text-purple-600 mr-2"></i> 雙軌展演形式規定</h4>
@@ -949,7 +1000,7 @@
                     </div>
                 </div>
 
-                <!-- SUBSECTION: Theoretical Foundations Detail Cards -->
+                <!-- 一、作業三核心理論觀點與分析工具詳解 -->
                 <div class="space-y-4 pt-4 border-t border-slate-200">
                     <div class="flex items-center space-x-2">
                         <span class="w-2.5 h-6 bg-amber-500 rounded-full"></span>
@@ -957,7 +1008,7 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Theory 1: Transformational vs Transactional Leadership -->
+                        <!-- 轉型領導 vs 交易領導 -->
                         <div class="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-3">
                             <div class="flex items-center justify-between">
                                 <h5 class="font-bold text-slate-900 text-sm"><i class="fas fa-sitemap text-amber-600 mr-2"></i>轉型領導 vs 交易領導框架</h5>
@@ -983,7 +1034,7 @@
                             </div>
                         </div>
 
-                        <!-- Theory 2: Tuckman's Team Development Stages -->
+                        <!-- Tuckman & Jensen (1977) 團隊發展階段 -->
                         <div class="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-3">
                             <div class="flex items-center justify-between">
                                 <h5 class="font-bold text-slate-900 text-sm"><i class="fas fa-users-cog text-blue-600 mr-2"></i>Tuckman & Jensen (1977) 團隊發展階段</h5>
@@ -1010,7 +1061,7 @@
                     </div>
                 </div>
 
-                <!-- SUBSECTION: Digital Film Production Guide & Team Matrix -->
+                <!-- 二、【數位展演組】拍攝職務分工與進度指南 -->
                 <div class="space-y-4 pt-4 border-t border-slate-200">
                     <div class="flex items-center space-x-2">
                         <span class="w-2.5 h-6 bg-amber-500 rounded-full"></span>
@@ -1025,7 +1076,7 @@
                         <span class="bg-amber-500 text-slate-950 px-3 py-1 rounded font-bold whitespace-nowrap">王亞維、陸凱聲老師指導</span>
                     </div>
 
-                    <!-- Roles Table -->
+                    <!-- 拍攝職務分工表 -->
                     <div class="overflow-x-auto custom-scrollbar">
                         <table class="w-full text-left text-xs border-collapse">
                             <thead>
@@ -1052,7 +1103,7 @@
                                 <tr>
                                     <td class="p-3 font-bold text-slate-900">編劇組</td>
                                     <td class="p-3 text-amber-700 font-semibold">編劇 (可超過1人)</td>
-                                    <td class="p-3 text-slate-600">轉化典範個案，改改成故事大綱、分場大綱與對白本。</td>
+                                    <td class="p-3 text-slate-600">轉化典範個案，改編成故事大綱、分場大綱與對白本。</td>
                                     <td class="p-3 text-slate-500">須由組員擔任</td>
                                 </tr>
                                 <tr>
@@ -1083,7 +1134,7 @@
                         </table>
                     </div>
 
-                    <!-- Instructor Allocation Matrix for Digital Groups -->
+                    <!-- 指導導師分配 -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                         <div class="bg-amber-50/80 p-4 rounded-xl border border-amber-200 space-y-1">
                             <span class="text-xs font-bold text-amber-800 block">(待定) 第 1~4 組 指導導師分配</span>
@@ -1099,7 +1150,7 @@
                 </div>
             </div>
 
-            <!-- HW 4 Content -->
+            <!-- 作業四內容 -->
             <div id="hw-card-4" class="hidden bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 pb-4">
                     <div>
@@ -1131,7 +1182,7 @@
                 </div>
             </div>
 
-            <!-- HW 5 Content -->
+            <!-- 作業五內容 -->
             <div id="hw-card-5" class="hidden bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 pb-4">
                     <div>
@@ -1153,7 +1204,7 @@
                     </div>
                     <div class="p-3 bg-white rounded border border-slate-200 text-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <span>參考閱讀資料：林書豪、三國演義、TED Talk、Michelle Obama 及線上補充文章。</span>
-                        <a href="https://reurl.cc/vpqOEl" target="_blank" class="text-amber-700 font-bold hover:underline flex items-center space-x-1">
+                        <a href="https://drive.google.com/drive/folders/15m_V70ajlBU6W-intAe5qQps0BGaE-9N?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-amber-700 font-bold hover:underline flex items-center space-x-1">
                             <i class="fas fa-external-link-alt"></i>
                             <span>延伸參考閱讀連結</span>
                         </a>
@@ -1166,21 +1217,21 @@
         </section>
     </main>
 
-    <!-- Quick Search Modal Container -->
-    <div id="searchModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <!-- 8. 即時關鍵字搜尋彈窗 (Search Modal) -->
+    <div id="searchModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4" onclick="if(event.target === this) toggleSearchModal()">
         <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4">
             <div class="flex items-center justify-between border-b border-slate-200 pb-3">
                 <h3 class="font-bold text-slate-900 text-lg"><i class="fas fa-search text-amber-500 mr-2"></i> 搜尋課程內容與時程</h3>
-                <button onclick="toggleSearchModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+                <button onclick="toggleSearchModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none">&times;</button>
             </div>
-            <input type="text" id="searchInput" oninput="handleLiveSearch()" placeholder="輸入關鍵字 (如：作業三、轉型領導、Tuckman、微電影、王亞維...)" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
-            <div id="searchResults" class="max-h-60 overflow-y-auto space-y-2 text-xs text-slate-700 custom-scrollbar">
+            <input type="text" id="searchInput" oninput="handleLiveSearch()" placeholder="輸入關鍵字 (如：作業三、轉型領導、Tuckman、微電影、陳嬿如、花蓮...)" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+            <div id="searchResults" class="max-h-64 overflow-y-auto space-y-2 text-xs text-slate-700 custom-scrollbar">
                 <p class="text-slate-400 text-center py-4">請輸入關鍵字開始快速檢索...</p>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- 頁尾 (Footer) -->
     <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-12 text-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center md:text-left">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -1189,10 +1240,10 @@
                     <p class="mt-1">2027年班（116級）「領導與團隊 4學分」授課計畫網頁</p>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <a href="https://reurl.cc/vpqOEl" target="_blank" class="bg-slate-800 text-amber-300 hover:bg-slate-700 font-semibold px-3 py-2 rounded-lg transition border border-slate-700">
-                        <i class="fas fa-link mr-1"></i> 參考閱讀資料
+                    <a href="https://drive.google.com/drive/folders/15m_V70ajlBU6W-intAe5qQps0BGaE-9N?usp=drive_link" target="_blank" rel="noopener noreferrer" class="bg-slate-800 text-amber-300 hover:bg-slate-700 font-semibold px-3 py-2 rounded-lg transition border border-slate-700">
+                        <i class="fas fa-link mr-1"></i> 參考閱讀資料/完整課程大綱
                     </a>
-                    <a href="https://go.emba.cnccu.tw/learning/login" target="_blank" class="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition">
+                    <a href="https://go.emba.nccu.edu.tw/learning/login" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition">
                         EMBA 學習平台登入
                     </a>
                 </div>
@@ -1204,8 +1255,157 @@
         </div>
     </footer>
 
-    <!-- Interactive JavaScript -->
+    <!-- 互動與動態倒數 JavaScript -->
     <script>
+        // ==========================================
+        // 1. 智慧動態作業倒數計時引擎
+        // (民國 115 年 = 2026 年 / 民國 116 年 = 2027 年)
+        // ==========================================
+        const courseDeadlines = [
+            {
+                id: 'photo',
+                title: '學生證個人照片上傳',
+                rocDate: '115/12/01 (二) 23:55',
+                targetISO: '2026-12-01T23:55:00+08:00',
+                actionType: 'platform'
+            },
+            {
+                id: 'hw1',
+                title: '作業一：生命故事年表',
+                rocDate: '115/12/07 (一) 12:00',
+                targetISO: '2026-12-07T12:00:00+08:00',
+                actionType: 'hw',
+                hwNum: 1
+            },
+            {
+                id: 'hw2_3',
+                title: '作業二 & 作業三 提案截止',
+                rocDate: '115/12/14 (一) 12:00',
+                targetISO: '2026-12-14T12:00:00+08:00',
+                actionType: 'hw',
+                hwNum: 3
+            },
+            {
+                id: 'vote',
+                title: '作業二/三 同儕線上投票截止',
+                rocDate: '115/12/16 (三) 12:00',
+                targetISO: '2026-12-16T12:00:00+08:00',
+                actionType: 'hw',
+                hwNum: 2
+            },
+            {
+                id: 'hw4',
+                title: '作業四：以「書」會友心得',
+                rocDate: '115/12/21 (一) 12:00',
+                targetISO: '2026-12-21T12:00:00+08:00',
+                actionType: 'hw',
+                hwNum: 4
+            },
+            {
+                id: 'offsite',
+                title: '花蓮四天三夜異地授課出發',
+                rocDate: '116/01/07 (四) 07:00',
+                targetISO: '2027-01-07T07:00:00+08:00',
+                actionType: 'schedule',
+                viewKey: 'offsite'
+            },
+            {
+                id: 'final',
+                title: '數位/影音展演日與結業儀式',
+                rocDate: '116/02/21 (日) 08:30',
+                targetISO: '2027-02-21T08:30:00+08:00',
+                actionType: 'schedule',
+                viewKey: 'final'
+            },
+            {
+                id: 'hw5',
+                title: '作業五：Takeaways 總結報告',
+                rocDate: '116/03/04 (四) 12:00',
+                targetISO: '2027-03-04T12:00:00+08:00',
+                actionType: 'hw',
+                hwNum: 5
+            }
+        ];
+
+        let selectedDeadlineIndex = 0;
+
+        function initCountdown() {
+            const selector = document.getElementById('deadlineSelector');
+            const now = new Date().getTime();
+
+            // 自動偵測下一個即將到來的任務
+            let nextIdx = courseDeadlines.findIndex(item => new Date(item.targetISO).getTime() > now);
+            if (nextIdx === -1) {
+                nextIdx = courseDeadlines.length - 1;
+            }
+            selectedDeadlineIndex = nextIdx;
+
+            // 填寫下拉選單
+            selector.innerHTML = courseDeadlines.map((item, idx) => {
+                const isPast = new Date(item.targetISO).getTime() <= now;
+                const statusTag = isPast ? ' (已截止)' : (idx === nextIdx ? ' ★最近期限' : '');
+                return `<option value="${idx}" ${idx === nextIdx ? 'selected' : ''}>${item.title}${statusTag}</option>`;
+            }).join('');
+
+            updateCountdownDisplay();
+            setInterval(updateCountdownDisplay, 1000);
+        }
+
+        function selectCustomDeadline() {
+            const selector = document.getElementById('deadlineSelector');
+            selectedDeadlineIndex = parseInt(selector.value, 10);
+            updateCountdownDisplay();
+        }
+
+        function updateCountdownDisplay() {
+            const item = courseDeadlines[selectedDeadlineIndex];
+            const targetTime = new Date(item.targetISO).getTime();
+            const now = new Date().getTime();
+            const diff = targetTime - now;
+
+            document.getElementById('deadlineDateText').textContent = `截止：${item.rocDate}`;
+
+            const badge = document.getElementById('countdownBadge');
+            if (diff <= 0) {
+                badge.innerHTML = `<i class="fas fa-check-circle"></i><span>已截止</span>`;
+                badge.className = 'inline-flex items-center space-x-1.5 bg-slate-700 text-slate-300 px-2.5 py-0.5 rounded-full font-bold tracking-wide';
+                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-hours').textContent = '00';
+                document.getElementById('cd-mins').textContent = '00';
+                document.getElementById('cd-secs').textContent = '00';
+                return;
+            }
+
+            badge.innerHTML = `<i class="fas fa-hourglass-half animate-spin" style="animation-duration: 3s;"></i><span>倒數計時</span>`;
+            badge.className = 'inline-flex items-center space-x-1.5 bg-red-600/90 text-white px-2.5 py-0.5 rounded-full font-bold tracking-wide shadow-sm';
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+            document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+        }
+
+        function jumpToSelectedTarget() {
+            const item = courseDeadlines[selectedDeadlineIndex];
+            if (item.actionType === 'platform') {
+                document.getElementById('platform-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (item.actionType === 'hw') {
+                switchHwTab(item.hwNum);
+                document.getElementById('hw-tabs-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (item.actionType === 'schedule') {
+                switchScheduleView(item.viewKey);
+                document.getElementById('timelines').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // ==========================================
+        // 2. 分頁切換與互動控制
+        // ==========================================
         function switchTeacherTab(tabKey) {
             ['core', 'guest', 'mentors'].forEach(k => {
                 const content = document.getElementById(`tab-${k}`);
@@ -1280,18 +1480,26 @@
             }
         }
 
+        // ==========================================
+        // 3. 即時關鍵字搜尋資料庫
+        // ==========================================
         const searchableItems = [
-            { title: '新生報到暨領團第一次上課', date: '115/11/29', detail: '玉山廳 14:30~17:30，公布分組17組' },
-            { title: '學生證照片上傳截止', date: '115/12/01', detail: '23:55 截止，JPG格式檔名為姓名' },
-            { title: '作業一：個人成長年表－生命故事截止', date: '115/12/07', detail: '中午 12:00 截止，歐巴馬式故事年表' },
-            { title: '王亞維老師 線上前導授課', date: '115/12/08', detail: '19:00~21:00 線上課程，微電影腳本與分鏡' },
-            { title: '作業二：團隊競標提案截止', date: '115/12/14', detail: '中午 12:00 截止，學習者中心 3 小時活動提案' },
-            { title: '作業三：成功的領導/團隊典範截止', date: '115/12/14', detail: '中午 12:00 截止，含轉型領導/Tuckman理論與微電影職務分工' },
-            { title: '同儕線上投票', date: '115/12/15 ~ 12/16', detail: '作業二與作業三學員投票，每人1票' },
-            { title: '作業四：以書會友截止', date: '115/12/21', detail: '中午 12:00 截止，1000字內附封面圖檔' },
-            { title: '異地授課 (花蓮遠雄悅來大飯店)', date: '116/01/07 ~ 01/10', detail: '四天三夜，登峰之旅、團隊競標實戰、實體組戲劇展演' },
-            { title: '數位/影音展演日與結業儀式', date: '116/02/21', detail: '研創大樓國際會議廳，微電影首映與社團招新' },
-            { title: '作業五：Takeaways 截止', date: '116/03/04', detail: '中午 12:00 截止，列舉至少六項啟發(3000字內)' }
+            { title: '新生報到暨領團第一次上課', date: '115/11/29', detail: '玉山廳 14:30~17:30，公布分組17組（每組11-13人）', target: '#timelines' },
+            { title: '學生證個人照片上傳截止', date: '115/12/01', detail: '23:55 截止，JPG格式檔名為姓名', target: '#platform-card' },
+            { title: '作業一：個人成長年表－生命故事截止', date: '115/12/07', detail: '中午 12:00 截止，歐巴馬式故事年表（四欄位格式）', target: '#assignments', hw: 1 },
+            { title: '王亞維老師 線上前導授課', date: '115/12/08', detail: '19:00~21:00 線上課程，微電影腳本與分鏡', target: '#timelines' },
+            { title: '作業二：團隊競標提案截止', date: '115/12/14', detail: '中午 12:00 截止，學習者中心 3 小時活動提案（最高補助 NT$ 10,000）', target: '#assignments', hw: 2 },
+            { title: '作業三：成功的領導/團隊典範截止', date: '115/12/14', detail: '中午 12:00 截止，含轉型領導/Tuckman理論與微電影職務分工', target: '#assignments', hw: 3 },
+            { title: '同儕線上投票', date: '115/12/15 ~ 12/16', detail: '作業二與作業三學員投票，每人1票', target: '#assignments', hw: 2 },
+            { title: '作業四：以書會友截止', date: '115/12/21', detail: '中午 12:00 截止，1000字內附封面圖檔', target: '#assignments', hw: 4 },
+            { title: '異地授課 (花蓮遠雄悅來大飯店)', date: '116/01/07 ~ 01/10', detail: '四天三夜，登峰之旅、團隊競標實戰、實體組戲劇展演', target: '#timelines', schedule: 'offsite' },
+            { title: '數位/影音展演日與結業儀式', date: '116/02/21', detail: '研創大樓國際會議廳，微電影首映與社團招新', target: '#timelines', schedule: 'final' },
+            { title: '作業五：Takeaways 截止', date: '116/03/04', detail: '中午 12:00 截止，列舉至少六項啟發(3000字內)', target: '#assignments', hw: 5 },
+            { title: '全球華商班 召集人與導師', date: '師資陣容', detail: '召集人：陳嬿如 教授｜導師：陳嬿如 教授、鄭至甫 教授', target: '#teachers', teacher: 'mentors' },
+            { title: '全球企業家組 召集人與導師', date: '師資陣容', detail: '召集人：羅明琇 教授｜導師：郭維裕 教授、酈芃羽 副教授', target: '#teachers', teacher: 'mentors' },
+            { title: '文化創意與科技創新組 召集人與導師', date: '師資陣容', detail: '召集人：張瑜倩 副教授｜導師：張瑜倩 副教授、張欣綠 教授', target: '#teachers', teacher: 'mentors' },
+            { title: '國際金融組 召集人與導師', date: '師資陣容', detail: '召集人：林士貴 教授｜導師：林士貴 教授、謝沛霖 副教授', target: '#teachers', teacher: 'mentors' },
+            { title: '生技醫療組 召集人與導師', date: '師資陣容', detail: '召集人：彭朱如 教授｜導師：胡昌亞 教授、潘振宇 副教授', target: '#teachers', teacher: 'mentors' }
         ];
 
         function handleLiveSearch() {
@@ -1314,8 +1522,8 @@
                 return;
             }
 
-            container.innerHTML = filtered.map(item => `
-                <div class="p-3 bg-slate-50 hover:bg-amber-50 rounded-lg border border-slate-200 transition">
+            container.innerHTML = filtered.map((item, idx) => `
+                <div onclick="navigateFromSearch('${item.target}', ${item.hw || 'null'}, ${item.schedule ? `'${item.schedule}'` : 'null'}, ${item.teacher ? `'${item.teacher}'` : 'null'})" class="p-3 bg-slate-50 hover:bg-amber-50 rounded-lg border border-slate-200 transition cursor-pointer">
                     <div class="flex justify-between font-bold text-slate-900">
                         <span>${item.title}</span>
                         <span class="text-amber-700">${item.date}</span>
@@ -1324,6 +1532,18 @@
                 </div>
             `).join('');
         }
+
+        function navigateFromSearch(target, hwNum, scheduleView, teacherTab) {
+            toggleSearchModal();
+            if (hwNum) switchHwTab(hwNum);
+            if (scheduleView) switchScheduleView(scheduleView);
+            if (teacherTab) switchTeacherTab(teacherTab);
+            const el = document.querySelector(target);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // 網頁載入完成後啟動倒數計時器
+        window.addEventListener('DOMContentLoaded', initCountdown);
     </script>
 </body>
 </html>
